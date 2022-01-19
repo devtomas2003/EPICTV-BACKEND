@@ -1,0 +1,7 @@
+node_modules
+.env
+yarn.lock
+src/controllers/contents/*
+!src/controllers/contents/.gitkeep
+src/controllers/covers/*
+!src/controllers/covers/.gitkeep

@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model ocas {
+  idOCA String @id
+  urlOca String
+  blocos blocos[]
+}
+
+model blocos {
+  idbloco String @id
+  cidr String
+  ocas ocas @relation(fields: [ocaID], references: [idOCA])
+  ocaID String
+}
+
+model Content {
+  id String @id
+  nome String
+  sinopse String
+  trailerID String
+  streamID String
+  minPoster String
+  minPosterType String
+  bigPoster String?
+  bigPosterType String?
+  minAge Int
+  launchYear Int
+  duration Int
+  likes Int @default(0)
+  deslikes Int @default(0)
+  categories Categories[]
+}
+
+model Categories {
+  id String @id
+  nome String
+  members Content[]
+}
+
+model Users {
+  id String @id
+  nome String
+  user String
+  email String
+  password String
+  ative Int @default(1)
+  profiles Profiles[]
+}
+
+model Profiles {
+  id String @id
+  nome String
+  type Int @default(0)
+  pin Int
+  profileIcon String
+  user Users? @relation(fields: [userId], references: [id])
+  userId String?
+}
